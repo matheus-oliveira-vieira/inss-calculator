@@ -38,6 +38,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_161932) do
 
   create_table "proponents", force: :cascade do |t|
     t.string "name"
+    t.string "email"
     t.string "cpf", null: false
     t.date "birth_date"
     t.decimal "salary", precision: 10, scale: 2
