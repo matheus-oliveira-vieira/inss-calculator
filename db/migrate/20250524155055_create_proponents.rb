@@ -2,7 +2,7 @@ class CreateProponents < ActiveRecord::Migration[8.0]
   def change
     create_table :proponents do |t|
       t.string :name
-      t.string :email
+      t.string :email, null: false, default: ""
       t.string :cpf, null: false
       t.date :birth_date
       t.decimal :salary, precision: 10, scale: 2
