@@ -7,6 +7,9 @@ namespace :dev do
     require "factory_bot_rails"
     include FactoryBot::Syntax::Methods
 
+    create(:proponent, :admin)
+    puts "Admin criado: admin@inss.com / admin123"
+
     10.times do
       proponent = create(:proponent)
       create(:address, proponent: proponent)
