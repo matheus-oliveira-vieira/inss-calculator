@@ -8,7 +8,7 @@ class Api::V1::ProponentsController < ApplicationController
   def new
     @proponent = Proponent.new
     @proponent.build_address
-    @proponent.contacts.build
+    @proponent.contacts.build if @proponent.contacts.empty?
   end
 
   def create

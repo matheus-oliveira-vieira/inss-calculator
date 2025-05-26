@@ -1,5 +1,11 @@
 pt-BR:
   activerecord:
+    attributes:
+      contact:
+        contact_types:
+          home_phone: "Telefone Fixo"
+          mobile: "Celular"
+          whatsapp: "WhatsApp"
     errors:
       models:
         proponent:
