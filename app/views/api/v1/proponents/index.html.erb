@@ -16,17 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @proponents.each do |proponent| %>
-          <tr>
-            <td><%= proponent.email %></td>
-            <td><%= proponent.cpf %></td>
-            <td><%= number_to_currency(proponent.inss_discount) %></td>
-            <td>
-              <%= link_to "Editar", edit_api_v1_proponent_path(proponent) %> |
-              <%= link_to "Remover", api_v1_proponent_path(proponent), method: :delete, data: { confirm: "Tem certeza?" } %>
-            </td>
-          </tr>
-        <% end %>
+        <%= render @proponents %>
       </tbody>
     </table>
   </div>

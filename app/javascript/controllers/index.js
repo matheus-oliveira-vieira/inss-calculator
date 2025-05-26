@@ -3,6 +3,8 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+import inssCalculatorController from "./inss_calculator_controller"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+application.register("inss-calculator", inssCalculatorController)

@@ -1,0 +1,10 @@
+<div class="proponents">
+  <tr>
+    <td><%= proponent.email %></td>
+    <td><%= proponent.cpf %></td>
+    <td><%= number_to_currency(proponent.inss_discount) %></td>
+    <td>
+      <%= link_to "Editar", api_v1_proponent_path(proponent) %>
+    </td>
+  </tr>
+</div>

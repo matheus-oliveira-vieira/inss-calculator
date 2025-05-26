@@ -1,1 +1,49 @@
-<h1> New </h1>
+<%= form_with(model: @proponent, url: api_v1_proponents_path, local: true, data: { controller: "inss-calculator" }) do |f| %>
+  <%= f.label :name, "Nome" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :cpf, "CPF" %>
+  <%= f.text_field :cpf %>
+
+  <%= f.label :birth_date, "Data de nascimento" %>
+  <%= f.date_field :birth_date %>
+
+  <%= f.label :email, "E-mail" %>
+  <%= f.text_field :email %>
+
+  <%= f.label :salary, "Salário" %>
+  <%= f.number_field :salary, step: 0.01,
+        data: { action: "input->inss-calculator#calculateInss",
+                inss_calculator_target: "salary" } %>
+
+  <%= f.label :inss_discount, "Desconto do INSS" %>
+  <%= f.text_field :inss_discount,
+        data: { inss_calculator_target: "discount" },
+        readonly: true %>
+
+  <h3>Endereço</h3>
+  <%= f.fields_for :address do |a| %>
+    <%= a.label :street, "Rua" %>
+    <%= a.text_field :street %>
+    <%= a.label :number, "Número" %>
+    <%= a.text_field :number %>
+    <%= a.label :neighborhood, "Bairro" %>
+    <%= a.text_field :neighborhood %>
+    <%= a.label :city, "Cidade" %>
+    <%= a.text_field :city %>
+    <%= a.label :state, "Estado" %>
+    <%= a.text_field :state %>
+    <%= a.label :zip_code, "CEP" %>
+    <%= a.text_field :zip_code %>
+  <% end %>
+
+  <h3>Contatos</h3>
+  <%= f.fields_for :contacts do |c| %>
+    <%= c.label :contact_type, "Tipo de Contato" %>
+    <%= c.select :contact_type, Contact.contact_types.keys.map { |k| [k.humanize, k] } %>
+    <%= c.label :value, "Número" %>
+    <%= c.text_field :value %>
+  <% end %>
+
+  <%= f.submit "Salvar" %>
+<% end %>

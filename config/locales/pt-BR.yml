@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        proponent:
+          attributes:
+            password:
+              blank: "não pode ficar em branco"
+  errors:
+    messages:
+      blank: "não pode ficar em branco"

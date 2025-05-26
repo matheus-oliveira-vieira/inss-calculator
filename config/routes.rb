@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
    namespace :api do
     namespace :v1 do
-      resources :proponents do
+      resources :proponents, only: [:index, :new, :create, :update] do
         collection do
           post :calculate_inss
         end
