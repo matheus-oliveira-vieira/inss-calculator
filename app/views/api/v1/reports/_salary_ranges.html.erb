@@ -1,6 +1,5 @@
 <div class="container mt-4">
-
-  <h1 class="mb-4">Relatório por Faixa Salarial</h1>
+  <h1 class="mb-4 text-center">Relatório por Faixa Salarial</h1>
 
   <div class="card mb-4">
     <div class="card-header bg-primary text-white">
@@ -15,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @salary_ranges.each do |range| %>
+          <% salary_ranges.each do |range| %>
             <tr>
               <td><%= range[:label] %></td>
               <td><%= range[:count] %></td>
@@ -36,8 +35,5 @@
         <canvas id="salaryChart" height="100"></canvas>
       </div>
     </div>
-  </div>
-  <div class="mt-4 d-flex justify-content-between">
-    <%= link_to "Voltar", api_v1_proponents_path, class: "btn btn-secondary" %>
   </div>
 </div>

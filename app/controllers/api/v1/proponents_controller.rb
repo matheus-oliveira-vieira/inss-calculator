@@ -6,6 +6,7 @@ class Api::V1::ProponentsController < ApplicationController
   PROPONENTS_PER_PAGE = 5
   def index
     @pagination, @proponents = paginate(collection: Proponent.all, params: page_params)
+    @salary_ranges = SalaryRangeReport.generate
   end
 
   def new

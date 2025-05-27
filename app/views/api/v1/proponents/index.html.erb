@@ -27,9 +27,8 @@
       </table>
     </div>
     <%= render partial: 'pagination', locals: { pagination: @pagination } %>
-    <div class="mb-3">
-      <%= link_to "Ver relatório", api_v1_salary_ranges_path, class: "btn btn-primary" %>
-    </div>
+    <%= render partial: 'api/v1/reports/salary_ranges',
+               locals: { salary_ranges: @salary_ranges } %>
   </div>
 <% else %>
    <div class="container mt-5 text-center">
