@@ -20,8 +20,6 @@ class Api::V1::ProponentsController < ApplicationController
     if @proponent.save
       redirect_to api_v1_proponents_path, notice: "Proponente criado com sucesso."
     else
-      Rails.logger.error "Erros de validação: #{@proponent.errors.full_messages}"
-      @proponent.errors.full_messages.each { |msg| puts msg }
       render :new
     end
   end

@@ -1,7 +1,7 @@
 class Address < ApplicationRecord
   belongs_to :proponent
 
-  validates :zip_code, presence: true
+  validates :zip_code, presence: true, format: { with: /\A\d{5}-?\d{3}\z/, message: "deve estar no formato 12345678 ou 12345-678" }
 
    STATES = [
     [ "Acre", "AC" ],
