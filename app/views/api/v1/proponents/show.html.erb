@@ -1,22 +1,46 @@
-<h1>Detalhes do Proponente</h1>
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0 text-center">Detalhes do Proponente</h3>
+    </div>
 
-<p><strong>Nome:</strong> <%= @proponent.name %></p>
-<p><strong>CPF:</strong> <%= @proponent.cpf %></p>
-<p><strong>Salário:</strong> <%= number_to_currency(@proponent.salary) %></p>
-<p><strong>Desconto INSS:</strong> <%= number_to_currency(@proponent.inss_discount) %></p>
+    <div class="card-body">
+      <p><strong>Nome:</strong> <%= @proponent.name %></p>
+      <p><strong>CPF:</strong> <%= @proponent.cpf %></p>
+      <p><strong>Salário:</strong> <%= number_to_currency(@proponent.salary) %></p>
+      <p><strong>Desconto INSS:</strong> <%= number_to_currency(@proponent.inss_discount) %></p>
 
-<h2>Endereço</h2>
-<% if @proponent.address %>
-  <p><%= @proponent.address.street %>, <%= @proponent.address.number %></p>
-  <p><%= @proponent.address.neighborhood %></p>
-  <p><%= @proponent.address.city %>/<%= @proponent.address.state %></p>
-  <p>CEP: <%= @proponent.address.zip_code %></p>
-<% end %>
+      <hr>
 
-<h2>Contatos</h2>
-<% @proponent.contacts.each do |contact| %>
-  <p><%= contact.contact_type.nil? ? "Tipo desconhecido" : t("activerecord.attributes.contact.contact_types.#{contact.contact_type}") %>: <%= contact.value %></p>
-<% end %>
+      <h5 class="mt-4">Endereço</h5>
+      <% if @proponent.address %>
+        <p><strong>Rua:</strong> <%= @proponent.address.street %>, <%= @proponent.address.number %></p>
+        <p><strong>Bairro:</strong> <%= @proponent.address.neighborhood %></p>
+        <p><strong>Cidade/Estado:</strong> <%= @proponent.address.city %>/<%= @proponent.address.state %></p>
+        <p><strong>CEP:</strong> <%= @proponent.address.zip_code %></p>
+      <% else %>
+        <p class="text-muted">Nenhum endereço cadastrado.</p>
+      <% end %>
+      
+      <hr>
 
-<%= link_to 'Editar', edit_api_v1_proponent_path(@proponent) %> |
-<%= link_to 'Voltar', api_v1_proponents_path %>
+      <h5 class="mt-4">Contatos</h5>
+      <% if @proponent.contacts.any? %>
+        <ul class="list-group">
+          <% @proponent.contacts.each do |contact| %>
+            <li class="list-group-item">
+              <strong><%= contact.contact_type.nil? ? "Tipo desconhecido" : t("activerecord.attributes.contact.contact_types.#{contact.contact_type}") %>:</strong>
+              <%= contact.value %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted">Nenhum contato cadastrado.</p>
+      <% end %>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+      <%= link_to 'Editar', edit_api_v1_proponent_path(@proponent), class: "btn btn-warning" %>
+      <%= link_to 'Voltar', api_v1_proponents_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>

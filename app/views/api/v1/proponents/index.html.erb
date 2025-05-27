@@ -1,27 +1,36 @@
 <% if proponent_signed_in? %>
- <div> Logado como: <%= current_proponent.email %> </div> 
-  <%= button_to "Logoff", destroy_proponent_session_path, method: :delete %> 
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <span class="text-muted">Logado como: <%= current_proponent.email %></span>
+      <%= button_to "Logoff", destroy_proponent_session_path, method: :delete, class: "btn btn-outline-danger btn-sm" %>
+    </div>
 
-  <h1>Proponentes</h1>
+    <h1 class="mb-4 text-center">Proponentes</h1>
 
-  <div>
-    <%= link_to "Novo Proponente", new_api_v1_proponent_path, class: "btn btn-primary" %>
-    <table>
-      <thead>
-        <tr>
-          <th>Email</th>
-          <th>CPF</th>
-          <th>INSS</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @proponents %>
-      </tbody>
-    </table>
+    <div class="mb-3">
+      <%= link_to "Novo Proponente", new_api_v1_proponent_path, class: "btn btn-primary" %>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-sm align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>INSS</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @proponents %>
+        </tbody>
+      </table>
+    </div>
     <%= render partial: 'pagination', locals: { pagination: @pagination } %>
   </div>
 <% else %>
-  <%= button_to "Login", new_proponent_session_path %> 
-  <h1>Faça Login na plataforma para continuar</h1>
+   <div class="container mt-5 text-center">
+      <h1 class="mb-3">Faça login para continuar</h1>
+      <%= button_to "Login", new_proponent_session_path, class: "btn btn-success" %>
+    </div>
 <% end %>

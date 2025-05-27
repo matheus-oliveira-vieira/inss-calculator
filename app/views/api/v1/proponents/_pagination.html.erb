@@ -1,15 +1,39 @@
-<div>
-  <% if  pagination.previous_page? %>
-    <%= link_to 'First', api_v1_proponents_path(page: 1) %>
-    <%= link_to '< Previous', api_v1_proponents_path(page: pagination.previous_page) %>
-  <% else %>
-    <p>First</p>
-  <% end %>
-  <p><%= "Page #{pagination.page} of #{pagination.total_pages}" %></p>
-  <% if pagination.next_page? %>
-    <%= link_to 'Next >', api_v1_proponents_path(page: pagination.next_page) %>
-    <%= link_to 'Last', api_v1_proponents_path(page: pagination.total_pages) %>
-  <% else %>
-    <p>Last </p>
-  <% end %>
-</div>
+<nav aria-label="Paginação" class="mt-4">
+  <ul class="pagination justify-content-center">
+    <% if pagination.previous_page? %>
+      <li class="page-item">
+        <%= link_to 'Primeira', api_v1_proponents_path(page: 1), class: 'page-link' %>
+      </li>
+      <li class="page-item">
+        <%= link_to '&laquo; Anterior'.html_safe, api_v1_proponents_path(page: pagination.previous_page), class: 'page-link' %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="page-link">Primeira</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">&laquo; Anterior</span>
+      </li>
+    <% end %>
+
+    <li class="page-item disabled">
+      <span class="page-link">Página <%= pagination.page %> de <%= pagination.total_pages %></span>
+    </li>
+
+    <% if pagination.next_page? %>
+      <li class="page-item">
+        <%= link_to 'Próxima &raquo;'.html_safe, api_v1_proponents_path(page: pagination.next_page), class: 'page-link' %>
+      </li>
+      <li class="page-item">
+        <%= link_to 'Última', api_v1_proponents_path(page: pagination.total_pages), class: 'page-link' %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="page-link">Próxima &raquo;</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Última</span>
+      </li>
+    <% end %>
+  </ul>
+</nav>

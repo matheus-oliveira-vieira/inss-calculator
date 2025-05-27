@@ -1,34 +1,48 @@
-<h2>Cadastre-se</h2>
+<h2 class="mb-4 text-center">Cadastre-se</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="card mx-auto" style="max-width: 500px;">
+  <div class="card-body">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="mb-3">
+        <%= f.label :email, "E-mail", class: "form-label" %>
+        <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email, "E-mail" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="mb-3">
+        <%= f.label :password, "Senha", class: "form-label" %>
+        <% if @minimum_password_length %>
+          <div class="form-text mb-1">(Mínimo de <%= @minimum_password_length %> caracteres)</div>
+        <% end %>
+        <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, "Confirme sua senha", class: "form-label" %>
+        <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :cpf, "CPF", class: "form-label" %>
+        <%= f.text_field :cpf,
+          class: "form-control",
+          maxlength: 14,
+          placeholder: "000.000.000-00",
+          data: {
+            controller: "cpf-formatter",
+            action: "input->cpf-formatter#format blur->cpf-formatter#format",
+            cpf_formatter_target: "cpfField"
+          }
+        %>
+      </div>
+
+      <div class="d-grid gap-2">
+        <%= f.submit "Confirmar", class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
+  <%= render "devise/shared/links" %>
+</div>
 
-  <div class="field">
-    <%= f.label :password, "Senha" %>
-    <% if @minimum_password_length %>
-    <em>(Mínimo de <%= @minimum_password_length %> caracteres)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirme sua senha" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :cpf, "CPF" %><br />
-    <%= f.text_field :cpf, required: true, maxlength: 11 %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Confirmar" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
