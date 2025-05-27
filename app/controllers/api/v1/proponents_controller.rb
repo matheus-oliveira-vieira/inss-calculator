@@ -1,5 +1,5 @@
 class Api::V1::ProponentsController < ApplicationController
-  before_action :set_proponent, only: %i[ update ]
+  before_action :set_proponent, only: %i[ edit show update ]
 
   def index
     @proponents = Proponent.all
@@ -22,6 +22,17 @@ class Api::V1::ProponentsController < ApplicationController
     end
   end
 
+  def edit
+    @proponent.build_address if @proponent.address.nil?
+    @proponent.contacts.build if @proponent.contacts.empty?
+  end
+
+  def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @proponent }
+    end
+  end
   def update
     if @proponent.update(proponent_params)
       redirect_to api_v1_proponents_path, notice: "Proponente atualizado com sucesso."

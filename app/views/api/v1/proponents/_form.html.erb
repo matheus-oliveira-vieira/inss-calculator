@@ -1,0 +1,90 @@
+<%= form_with(model: proponent,
+              url: proponent.persisted? ? api_v1_proponent_path(proponent) : api_v1_proponents_path,
+              method: proponent.persisted? ? :patch : :post,
+              local: true,
+              data: { controller: "inss-calculator", turbo: false }) do |f| %>
+
+  <% if proponent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(proponent.errors.count, proponent.errors.count > 1 ? "erros" : "erro") %> impedem o cadastro:</h2>
+      <ul>
+        <% proponent.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3>Dados pessoais</h3>
+  <%= f.label :name, "Nome" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :cpf, "CPF" %>
+  <%= f.text_field :cpf,
+      data: {
+        controller: "cpf-formatter",
+        action: "input->cpf-formatter#format blur->cpf-formatter#format",
+        cpf_formatter_target: "cpfField"
+      },
+      maxlength: 14,
+      placeholder: "000.000.000-00" %>
+
+  <%= f.label :birth_date, "Data de nascimento" %>
+  <%= f.date_field :birth_date %>
+
+  <%= f.label :email, "E-mail" %>
+  <%= f.text_field :email %>
+
+  <%= f.label :salary, "Salário" %>
+  <%= f.number_field :salary, step: 0.01,
+        data: { action: "input->inss-calculator#calculateInss",
+                inss_calculator_target: "salary" } %>
+
+  <%= f.label :inss_discount, "Desconto do INSS" %>
+  <%= f.text_field :inss_discount,
+        data: { inss_calculator_target: "discount" },
+        readonly: true %>
+
+  <h3>Endereço</h3>
+  <%= f.fields_for :address do |a| %>
+    <%= a.label :street, "Rua" %>
+    <%= a.text_field :street %>
+    <%= a.label :number, "Número" %>
+    <%= a.text_field :number %>
+    <%= a.label :neighborhood, "Bairro" %>
+    <%= a.text_field :neighborhood %>
+    <%= a.label :city, "Cidade" %>
+    <%= a.text_field :city %>
+    <%= a.label :state, "Estado" %>
+    <%= a.select :state, Address::STATES, { prompt: 'Selecione um estado' } %>
+    <%= a.label :zip_code, "CEP" %>
+    <%= a.text_field :zip_code,
+      data: {
+        controller: "zip-code-formatter",
+        action: "input->zip-code-formatter#format blur->zip-code-formatter#format",
+        zip_code_formatter_target: "cepField"
+      },
+      maxlength: 9,
+      placeholder: "00000-000" %>
+  <% end %>
+
+  <h3>Contatos</h3>
+  <div data-controller="nested-form">
+    <template data-nested-form-target="template">
+      <%= f.fields_for :contacts, Contact.new, child_index: 'NEW_RECORD' do |c| %>
+        <%= render "contact_fields", f: c %>
+      <% end %>
+    </template>
+
+    <%= f.fields_for :contacts do |c| %>
+      <%= render "contact_fields", f: c %>
+    <% end %>
+
+    <div data-nested-form-target="links">
+      <%= link_to "Adicionar Contato", "#", data: { action: "nested-form#add" } %>
+    </div>
+  </div>
+
+  <%= f.submit "Salvar" %>
+
+<% end %>

@@ -1,6 +1,5 @@
 <div class="contact-fields" data-new-record="<%= f.object.new_record? %>">
-  <%= f.label :contact_type %>
-  <%= f.select :contact_type, [["Selecione um tipo de contato", ""]] + Contact.contact_types.keys.map { |k| [t("activerecord.attributes.contact.contact_types.#{k}"), k] }, {selected: ""}, {} %>
+  <%= f.select :contact_type, [["Selecione um tipo de contato", ""]] + Contact.contact_types.keys.map { |k| [t("activerecord.attributes.contact.contact_types.#{k}"), k] }, {selected: f.object.contact_type.presence || ""}, {} %>
 
   <%= f.text_field :value,
       data: {
@@ -10,7 +9,7 @@
       },
       maxlength: 14,
       placeholder: "(00)0000-0000" %>
-  
+
   <%= link_to "Remover", "#", data: { action: "nested-form#remove" } %>
   <%= f.hidden_field :_destroy if f.object.persisted? %>
 </div>

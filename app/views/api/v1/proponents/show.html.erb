@@ -1,0 +1,22 @@
+<h1>Detalhes do Proponente</h1>
+
+<p><strong>Nome:</strong> <%= @proponent.name %></p>
+<p><strong>CPF:</strong> <%= @proponent.cpf %></p>
+<p><strong>Salário:</strong> <%= number_to_currency(@proponent.salary) %></p>
+<p><strong>Desconto INSS:</strong> <%= number_to_currency(@proponent.inss_discount) %></p>
+
+<h2>Endereço</h2>
+<% if @proponent.address %>
+  <p><%= @proponent.address.street %>, <%= @proponent.address.number %></p>
+  <p><%= @proponent.address.neighborhood %></p>
+  <p><%= @proponent.address.city %>/<%= @proponent.address.state %></p>
+  <p>CEP: <%= @proponent.address.zip_code %></p>
+<% end %>
+
+<h2>Contatos</h2>
+<% @proponent.contacts.each do |contact| %>
+  <p><%= contact.contact_type.nil? ? "Tipo desconhecido" : t("activerecord.attributes.contact.contact_types.#{contact.contact_type}") %>: <%= contact.value %></p>
+<% end %>
+
+<%= link_to 'Editar', edit_api_v1_proponent_path(@proponent) %> |
+<%= link_to 'Voltar', api_v1_proponents_path %>

@@ -1,4 +1,13 @@
 pt-BR:
+  number:
+    currency:
+      format:
+        unit: "R$"
+        precision: 2
+        separator: ","
+        delimiter: "."
+        format: "%u %n"
+
   activerecord:
     attributes:
       contact:
