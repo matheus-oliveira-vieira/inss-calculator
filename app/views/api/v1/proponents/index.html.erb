@@ -19,6 +19,7 @@
         <%= render @proponents %>
       </tbody>
     </table>
+    <%= render partial: 'pagination', locals: { pagination: @pagination } %>
   </div>
 <% else %>
   <%= button_to "Login", new_proponent_session_path %> 

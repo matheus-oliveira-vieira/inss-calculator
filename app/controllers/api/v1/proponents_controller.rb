@@ -1,8 +1,11 @@
 class Api::V1::ProponentsController < ApplicationController
+  include Pagination
+
   before_action :set_proponent, only: %i[ edit show update ]
 
+  PROPONENTS_PER_PAGE = 5
   def index
-    @proponents = Proponent.all
+    @pagination, @proponents = paginate(collection: Proponent.all, params: page_params)
   end
 
   def new
@@ -64,5 +67,9 @@ class Api::V1::ProponentsController < ApplicationController
       address_attributes: [ :id, :zip_code, :number, :neighborhood, :city, :state, :street, :_destroy ],
       contacts_attributes: [ :id, :contact_type, :value, :_destroy ]
     )
+  end
+
+  def page_params
+    params.permit(:page).merge(per_page: PROPONENTS_PER_PAGE)
   end
 end
