@@ -1,0 +1,43 @@
+<div class="container mt-4">
+
+  <h1 class="mb-4">Relatório por Faixa Salarial</h1>
+
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      Faixas Salariais - Listagem
+    </div>
+    <div class="card-body p-0">
+      <table class="table mb-0 table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Faixa Salarial</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @salary_ranges.each do |range| %>
+            <tr>
+              <td><%= range[:label] %></td>
+              <td><%= range[:count] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      Faixas Salariais - Gráfico
+    </div>
+    <div class="card-body">
+      <div data-controller="salary-chart"
+          data-salary-chart-url-value="<%= api_v1_salary_ranges_path(format: :json) %>">
+        <canvas id="salaryChart" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 d-flex justify-content-between">
+    <%= link_to "Voltar", api_v1_proponents_path, class: "btn btn-secondary" %>
+  </div>
+</div>

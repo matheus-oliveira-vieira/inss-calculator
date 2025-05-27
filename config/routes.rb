@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
    namespace :api do
     namespace :v1 do
+      get "reports/salary_ranges", to: "reports#salary_ranges", as: :salary_ranges
       resources :proponents, only: [ :index, :new, :create, :edit, :update, :show ] do
         collection do
           post :calculate_inss

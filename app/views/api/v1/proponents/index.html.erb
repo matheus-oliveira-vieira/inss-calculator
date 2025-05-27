@@ -15,7 +15,7 @@
       <table class="table table-bordered table-hover table-sm align-middle">
         <thead class="table-light">
           <tr>
-            <th>Email</th>
+            <th>Nome</th>
             <th>CPF</th>
             <th>INSS</th>
             <th class="text-center">Ações</th>
@@ -27,6 +27,9 @@
       </table>
     </div>
     <%= render partial: 'pagination', locals: { pagination: @pagination } %>
+    <div class="mb-3">
+      <%= link_to "Ver relatório", api_v1_salary_ranges_path, class: "btn btn-primary" %>
+    </div>
   </div>
 <% else %>
    <div class="container mt-5 text-center">

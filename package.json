@@ -18,6 +18,7 @@
     "autoprefixer": "^10.4.21",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.4.9",
     "nodemon": "^3.1.10",
     "postcss": "^8.5.3",
     "postcss-cli": "^11.0.1",
