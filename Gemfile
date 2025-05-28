@@ -33,7 +33,7 @@ group :test do
   gem "shoulda-matchers", "~> 6.0"
   gem "simplecov", require: false
   gem "capybara"
-  gem "webdrivers", "= 5.3.0"
+  gem "webdrivers", "5.3.1"
 end
 
 gem "devise", "~> 4.9"
