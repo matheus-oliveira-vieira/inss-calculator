@@ -32,6 +32,8 @@ end
 group :test do
   gem "shoulda-matchers", "~> 6.0"
   gem "simplecov", require: false
+  gem "capybara"
+  gem "webdrivers", "= 5.3.0"
 end
 
 gem "devise", "~> 4.9"
