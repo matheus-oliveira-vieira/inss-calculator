@@ -77,6 +77,13 @@ RSpec.describe Api::V1::ProponentsController, type: :request do
         expect(proponent.reload.name).to eq('Novo Nome')
       end
     end
+
+    context 'with invalid params' do
+      it 'does nor redirect the page' do
+        patch api_v1_proponent_path(proponent), params: {}
+        expect(response).not_to be_redirect
+      end
+    end
   end
 
   describe 'POST /api/v1/proponents/calculate_inss' do
